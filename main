@@ -1,0 +1,65 @@
+import random
+import time
+
+class Process:
+    def __init__(self, pid):
+        self.pid = pid
+        self.burst_time = random.randint(5, 20)
+        self.priority = random.randint(1, 5)
+        self.memory = random.randint(50, 200)
+
+    def __str__(self):
+        return f"P{self.pid} | BT:{self.burst_time} | PR:{self.priority} | MEM:{self.memory}"
+
+class System:
+    def __init__(self):
+        self.processes = [Process(i) for i in range(5)]
+        self.cpu_usage = 0
+        self.memory_usage = 0
+        self.total_memory = 1000
+
+    def monitor(self):
+        self.cpu_usage = random.randint(40, 95)
+        self.memory_usage = sum(p.memory for p in self.processes)
+
+    def adaptive_allocation(self):
+        print("\n[Monitoring]")
+        print(f"CPU Usage: {self.cpu_usage}%")
+        print(f"Memory Usage: {self.memory_usage}/{self.total_memory}")
+
+        # CPU overload
+        if self.cpu_usage > 80:
+            print("→ High CPU load detected")
+            for p in self.processes:
+                if p.burst_time > 10:
+                    p.priority += 1
+
+        # Memory overload
+        if self.memory_usage > 750:
+            print("→ High Memory usage detected")
+            self.processes.sort(key=lambda x: x.priority, reverse=True)
+            removed = self.processes.pop()
+            print(f"→ Swapping out Process {removed.pid}")
+
+        # Idle CPU
+        if self.cpu_usage < 50:
+            print("→ CPU underutilized")
+            for p in self.processes:
+                p.priority -= 1 if p.priority > 1 else 0
+
+    def schedule(self):
+        self.processes.sort(key=lambda x: x.priority)
+        print("\n[Scheduling Order]")
+        for p in self.processes:
+            print(p)
+
+    def run(self):
+        for cycle in range(5):
+            print(f"\n====== Cycle {cycle+1} ======")
+            self.monitor()
+            self.adaptive_allocation()
+            self.schedule()
+            time.sleep(1)
+
+system = System()
+system.run()
