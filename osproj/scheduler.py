@@ -27,4 +27,4 @@ class Scheduler:
 
         next_process = schedule[0]
         next_process.run_for_cycle()
-        return next_proces
+        return next_process
