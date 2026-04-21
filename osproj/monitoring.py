@@ -20,5 +20,5 @@ class MonitoringModule:
         cpu_usage = (total_burst + pressure) / self.cpu_capacity * 100
         return min(cpu_usage, 100.0)
 
-    def measure_memory_usage(self, process_manager: ProcessManager) -> float:
+    def measure_memory_usage(self, process_manager: ProcessManager) -> int:
         return min((process_manager.total_memory_usage() / self.memory_capacity) * 100, 100.0)
