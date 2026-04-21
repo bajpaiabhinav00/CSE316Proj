@@ -48,8 +48,8 @@ class SimulationController:
         self.completed_processes += max(0, before_count - after_count)
         self.cpu_history.append(snapshot.cpu_usage)
         self.memory_history.append(snapshot.memory_usage)
-        self.cpu_history = self.cpu_history[-30:]
-        self.memory_history = self.memory_history[-30:]
+        self.cpu_history = self.cpu_history[-60:]
+        self.memory_history = self.memory_history[-60:]
         return self.serialize(snapshot)
 
     def status(self) -> dict[str, Any]:
