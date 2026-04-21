@@ -33,7 +33,7 @@ class AdaptiveDecisionEngine:
                     f"Swapped out PID {swapped.pid} to reduce memory pressure"
                 )
 
-        if cpu_usage < 50:
+        if cpu_usage < 40:
             for process in process_manager.get_waiting_processes():
                 previous_priority = process.priority
                 process.adjust_priority(1)
