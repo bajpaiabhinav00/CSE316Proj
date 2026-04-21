@@ -18,7 +18,7 @@ class SimulationController:
     """Keeps mutable simulation state for the local web UI."""
 
     def __init__(self) -> None:
-        self.max_cycles = 10
+        self.max_cycles = 60
         self.reset()
 
     def reset(self) -> dict[str, Any]:
