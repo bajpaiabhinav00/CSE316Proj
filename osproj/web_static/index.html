@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adaptive Resource Allocation Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Multiprogramming System Simulator</p>
+        <h1>Adaptive Resource Allocation Dashboard</h1>
+        <p class="subtext">
+          Explore CPU scheduling and memory-aware process swapping with a live browser simulation.
+        </p>
+      </div>
+      <div class="hero-actions">
+        <button id="startPauseBtn" class="btn btn-primary">Start</button>
+        <button id="stepBtn" class="btn btn-secondary">Step</button>
+        <button id="resetBtn" class="btn btn-secondary">Reset</button>
+      </div>
+    </header>
+
+    <section class="top-grid">
+      <article class="metric-card cpu">
+        <span class="metric-label">CPU Usage</span>
+        <strong id="cpuValue" class="metric-value">0%</strong>
+        <span class="metric-foot">Processor pressure across active processes</span>
+      </article>
+      <article class="metric-card memory">
+        <span class="metric-label">Memory Usage</span>
+        <strong id="memoryValue" class="metric-value">0%</strong>
+        <span class="metric-foot">Resident memory footprint of active workload</span>
+      </article>
+      <article class="metric-card neutral">
+        <span class="metric-label">Cycle</span>
+        <strong id="cycleValue" class="metric-value">0</strong>
+        <span class="metric-foot">Current simulation iteration</span>
+      </article>
+      <article class="metric-card neutral">
+        <span class="metric-label">Running Process</span>
+        <strong id="runningValue" class="metric-value">Idle</strong>
+        <span class="metric-foot">Process currently assigned to the CPU</span>
+      </article>
+    </section>
+
+    <main class="dashboard-grid">
+      <section class="panel wide">
+        <div class="panel-header">
+          <div>
+            <h2>Active Processes</h2>
+            <p>Live workload view with burst time, priority, memory, and state.</p>
+          </div>
+          <div class="legend">
+            <span><i class="dot ready"></i>Ready</span>
+            <span><i class="dot running"></i>Running</span>
+            <span><i class="dot completed"></i>Swapped/Done</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>PID</th>
+                <th>Burst</th>
+                <th>Priority</th>
+                <th>Memory</th>
+                <th>State</th>
+              </tr>
+            </thead>
+            <tbody id="processTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>Scheduling Queue</h2>
+            <p>Priority-based order after each adaptive update.</p>
+          </div>
+        </div>
+        <ol id="scheduleList" class="queue-list"></ol>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>Adaptive Actions</h2>
+            <p>System decisions taken when thresholds are crossed.</p>
+          </div>
+        </div>
+        <div id="actionLog" class="action-log"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>Resource History</h2>
+            <p>Recent CPU and memory trends for the simulation window.</p>
+          </div>
+        </div>
+        <canvas id="historyCanvas" width="520" height="280"></canvas>
+        <div class="history-footer">
+          <span id="swapCount">Swapped: 0</span>
+          <span id="completedCount">Completed: 0</span>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
